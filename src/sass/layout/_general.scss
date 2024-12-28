@@ -1,0 +1,27 @@
+// ----------------------------------General layout styles-------------------------//
+//________________________________________________________________________________//
+@use '../core/variables' as *;
+
+.heading-h3 {
+	margin-top: 2rem;
+}
+
+.container {
+	margin: 0 auto;
+	width: 100%;
+	max-width: 1200px;
+}
+
+.padding-page {
+	padding: 2rem;
+}
+
+.section {
+	padding: 2rem;
+	background-color: #ccc;
+	margin-bottom: 2rem;
+}
+
+footer {
+	padding: 2rem;
+}

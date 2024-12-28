@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/css/main.css">
+    <title>"GSGG3" - Gulp, SASS, Git, Github - latest</title>
+</head>
+
+<body>
+
+    <header class="header padding-page container">
+        <h1>Projekt: Visual Studio Code, Gulp, Sass, Git, GitHub </h1>
+        <nav class="nav">
+            <ul>
+                <li><a href="#organizacja">Organizacja</a></li>
+                <li><a href="#srodowisko">Środowisko</a></li>
+                <li><a href="#gulp-i-sass">Gulp i Sass</a></li>
+                <li><a href="#struktura">Struktura</a></li>
+                <li><a href="#init-git-github">Git i Github</a></li>
+                <li><a href="#kontakt">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+
+    <main class="container">
+
+        <article class="article">
+
+            <header class="article__header padding-page">
+                <h2>Sekwencja tworzenia struktury projektu strony internetowej</h2>
+                <p>Tworzenie struktury folderów i plików projektu strony internetowej, która będzie wykorzystywać
+                    narzędzia takie jak Gulp, SASS, Git i GitHub, może być skomplikowane, szczególnie dla początkujących
+                    programistów. Choć informacje na ten temat są dostępne, często są rozproszone i wymagają dogłębnego
+                    poszukiwania, co sprawia, że proces ten staje się czasochłonny. W artykule przedstawiono
+                    kompleksowe, praktyczne podejście do zorganizowania projektu od podstaw, co pomoże zminimalizować
+                    trudności i usprawnić pracę nad projektem internetowym.</p>
+
+                <h3>Szczegóły</h3>
+                <ul class="list-default">
+                    <li>W projekcie wykorzystano zapisy Sass <span class="highlight command-inline">@use</span> i
+                        <span class="highlight command-inline">@forward</span>
+                    </li>
+                </ul>
+            </header>
+
+            <section class="section environment">
+
+                <h2 id="srodowisko">1. Przygotowanie środowiska</h2>
+
+                <h3 class="heading-h3">1.1 Zainstaluj Node.js</h3>
+                <p>Upewnij się, że masz zainstalowany Node.js, ponieważ Gulp i Sass są oparte na tym środowisku.
+                    Możesz pobrać go ze strony <a href="https://nodejs.org/">Node.js</a></p>
+
+                <h3 class="heading-h3">1.2 Utwórz nowy folder projektu</h3>
+                <p>Utwórz nowy folder dla swojego projektu i otwórz go w wybranym edytorze kodu, np. Visual Studio Code. Otwórz terminal i przejdź do folderu projektu.</p>
+
+                <h3 class="heading-h3">1.3 Zainicjuj projekt npm</h3>
+                <p>W terminalu wpisz <span class="highlight command-inline">npm init -y</span>, aby stworzyć plik package.json z domyślnymi ustawieniami.</p>
+
+            </section>
+
+            <section class="section gulp-sass">
+                <h2 id="gulp-i-sass">2. Instalacja Gulp i Sass</h2>
+                <h3 class="heading-h3">2.1 Zainstaluj Gulp globalnie</h3>
+                <span class="highlight command-inline">npm install --global gulp-cli
+                </span>
+                <h3 class="heading-h3">2.2 Zainstaluj Gulp i Sass w projekcie</h3>
+                <span class="highlight command-inline">npm install --save-dev gulp gulp-sass sass
+                </span>
+            </section>
+
+            <section class="section structure">
+                <h2 id="struktura">3. Utworzenie struktury folderów i plików</h2>
+                <h3 class="heading-h3">3.1 Struktura</h3>
+<div class="highlight command-block">
+
+<pre>
+projekt/
+│
+├── dist/
+│   ├── css/
+│   ├── img/
+│   ├── js/
+│
+├── src/
+│   ├── img/
+│   ├── js/
+│   │   └── script.js
+│   ├── sass/
+│   │   ├── main.scss
+│   │   ├── components/
+│   │   │   ├── _button.scss
+│   │   │   ├── _form.scss
+│   │   │   ├── _index.scss
+│   │   ├── core/
+│   │   │   ├── _base.scss
+│   │   │   ├── _index.scss
+│   │   │   ├── _variables.scss
+│   │   ├── layout/
+│   │   │   ├── _footer.scss
+│   │   │   ├── _header.scss
+│   │   │   ├── _index.scss
+│   │   ├── pages/
+│   │       ├── _about.scss
+│   │       ├── _index.scss
+│   │       
+│   ├────index.html
+│
+├── gulpfile.js
+</pre>
+
+</div>
+
+                <h3>3.2 Konfiguracja pliku gulpfile.js</h3>
+<div class="highlight command-block">
+
+<code>
+
+<pre>
+'use strict';
+
+import { src, dest, watch as gulpWatch, task, series } from 'gulp';
+import gulpSass from 'gulp-sass';
+import * as sass from 'sass';
+
+const sassCompiler = gulpSass(sass);
+
+function buildStyles() {
+return src('./src/sass/**/*.scss')
+.pipe(sassCompiler().on('error', sassCompiler.logError))
+.pipe(dest('./dist/css'));
+}
+
+function watchFiles() {
+gulpWatch('./src/sass/**/*.scss', buildStyles);
+}
+
+task('buildStyles', buildStyles);
+task('watch', watchFiles);
+task('default', series(buildStyles, watchFiles));
+</code>
+
+</pre>
+
+</div>
+            </section>
+
+            <section class="section init-git">
+
+                <h2 id="init-git-github">4. Inicjalizacja Git i GitHub</h2>
+
+                <h3 class="heading-h3">4.1 Zainicjuj repozytorium Git</h3>
+                <span class="highlight command-inline">git init</span>
+
+                <h3 class="heading-h3">4.2 Przykładowe ustawienia .gitignore</h3>
+<div class="highlight command-block">
+<pre>
+node_modules/
+dist/
+projekt.code-workspace
+</pre>
+</div>
+
+                <h3 class="heading-h3">4.2 Dodaj zdalne repozytorium na GitHubie</h3>
+            </section>
+
+            <section class="section ">
+                
+            </section>
+
+        </article>
+
+    </main>
+
+
+
+    <footer class="footer container">
+        <p>&copy; GSGG 2025</p>
+    </footer>
+
+
+
+    <script src="./dist/js/main.js"></script>
+
+</body>
+
+</html>

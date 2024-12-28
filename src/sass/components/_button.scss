@@ -1,0 +1,13 @@
+// -------------------------------------Button-------------------------------------//
+//________________________________________________________________________________//
+@use '../core/variables' as *;
+
+.btn {
+	display: block;
+	width: 100%;
+	margin: 0 auto;
+	padding: 1rem;
+	text-align: center;
+	color: $light-color;
+	background-color: $theme-color;
+}
